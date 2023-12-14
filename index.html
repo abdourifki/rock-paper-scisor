@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors Game</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/game" rel="stylesheet">
+                
+  </head>
+  <body>
+    <h1>Welcome to Rock Paper Scissors Game</h1>
+    <div class="play-btn">
+      <button onclick="startGame()">Play Game</button>
+    </div>
+
+    <div id="game-container">
+      <h2>Choose  :</h2>
+      <div class="game-icon">
+        <img src="./image/images-removebg-preview.png" class="scisors" onclick="playerChoice('scisors')">
+        <img src="./image/png-transparent-rock-paper-scissors-computer-icons-scissors-game-white-face-removebg-preview.png" class="rock" onclick="playerChoice('rock')">
+        <img src="./image/paper-removebg-preview.png" class="paper" onclick="playerChoice('paper')">
+      </div>
+
+      <div id="result"></div>
+
+      <div id="score">
+        <p>Player Score : <span id="player-score">0</span></p>
+        <p>Computer Score : <span id="computer-score">0</span></p>
+      </div>
+    </div>
+
+    <script>
+        let playerScore = 0;
+      let computerScore = 0;
+
+
+      function startGame() {
+        document.getElementById("game-container").style.display = "block";
+      }
+
+      function playerChoice(choice) {
+        const choices = ["rock", "paper", "scisors"];
+        const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+        const result = getResult(choice, computerChoice);
+
+        document.getElementById(
+          "result"
+        ).innerHTML = `You chose ${choice||""}. Computer chose ${computerChoice}. ${result}`;
+        // Update scores
+        if (result === "You win !") {
+          playerScore++;
+        } else if (result === "You lose !") {
+          computerScore++;
+        }
+
+        // Display scores
+        document.getElementById("player-score").innerText = playerScore;
+        document.getElementById("computer-score").innerText = computerScore;
+      }
+      
+      function getResult(player, computer) {
+        if (player === computer) {
+          return "It's a tie!";
+        } else if (
+          (player === "rock" && computer === "scisors") ||
+          (player === "paper" && computer === "rock") ||
+          (player === "scisors" && computer === "paper")
+        ) {
+          return "You win !";
+        } else {
+          return "You lose !";
+        }
+      }
+    </script>
+  </body>
+</html>
